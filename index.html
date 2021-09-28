@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dexy demo</title>
+  </head>
+  <body>
+    <script src="dexy.js"></script>
+    <script>
+      (async function () {
+        const db = dexy("my-cool-db");
+
+        await db.set("secret", "123456");
+        console.log("secret is:", await db.get("secret"));
+
+        await db.set("super-secret", "!@#$%^");
+        const superSecret = await db.get("super-secret");
+        console.log("superSecret:", superSecret);
+
+        await db.set("secret", "654321");
+        console.log("secret is now:", await db.get("secret"));
+
+        await db.del("secret");
+        console.log("finally secret is:", await db.get("secret"));
+
+        await db.close()
+      })();
+    </script>
+  </body>
+</html>
